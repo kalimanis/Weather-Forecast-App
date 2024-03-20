@@ -49,7 +49,14 @@ Short Report 📝
 
 **Problems and Solutions:**
 
-*   🚀 Deployment Issues: Had issues with deploying the application due to environmental differences between development and production. Solved by using environment variables and testing deployment in a staging environment.
+🌡️ **Average Temperature Calculations**: The requirement was to list the average temperature of the last three forecasts for each location, every day. This posed a challenge due to SQLite's limitations in handling complex queries and Python's data processing overhead.
+
+- **Problem**: SQLite does not support some of the more complex SQL operations needed to easily calculate the average of the last three forecasts per day for each location directly in a single query. Additionally, performing this calculation entirely within Python could lead to significant overhead, especially with large datasets.
+  
+- **Solution**: We approached this problem by breaking it down into manageable steps. First, we extracted all relevant forecasts for each location from the SQLite database, ordered by date. Then, we processed this data in Python, organizing it by location and date, and computing the average temperature for the last three forecasts of each day. This approach leveraged SQLite's efficiency in data retrieval and Python's flexibility in data manipulation, offering a balanced solution while adhering to the application's technological stack's capabilities.
+
+This solution illustrates the importance of combining SQL and Python's strengths to overcome the limitations of using SQLite for complex data processing tasks. It also underscores the necessity of clear problem breakdown and iterative solution design in software development.
+
 *   📚 Large Datasets: Handling large datasets and ensuring application performance led to implementing pagination for data displayed on the frontend.
 
 **Tools and Techniques Used:**
