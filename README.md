@@ -37,15 +37,12 @@ Short Report 📝
 
 **Challenges and Solutions:**
 
-*   📈 API Rate Limits: Encountered issues with API rate limits. Solved by caching responses and limiting fetch frequency.
 *   📊 Data Structure: Determining the most efficient database schema to store and query weather data. Resolved by normalizing data into separate tables for locations and forecasts.
 *   🔒 Security: Ensuring the secure storage of API credentials. Resolved by storing credentials outside of the main script and ignoring sensitive files from version control.
-*   📋 User Input Handling: Implementing error handling and validation for dynamic user inputs to prevent SQL injection and other malicious activities.
 
 **Unexpected Issues:**
 
 *   🕰️ Timezone inconsistencies between the API data and user local time were addressed by converting all times to UTC.
-*   🔄 Dynamic Front End Updates: Encountered difficulties in dynamically updating the front end with new data without reloading the page, which led to exploring AJAX and Flask's jsonify.
 
 **Problems and Solutions:**
 
