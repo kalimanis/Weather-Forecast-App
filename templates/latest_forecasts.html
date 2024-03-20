@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Latest Forecasts</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Latest Forecasts</h2>
+        {% for city, forecasts in latest_forecasts_by_city.items() %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    {{ city }}
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for forecast in forecasts %}
+                        <li class="list-group-item">
+                            Date: {{ forecast.forecast_date }} - Temperature: {{ forecast.temperature }}°C, Precipitation: {{ forecast.precipitation }}mm, Wind Speed: {{ forecast.wind_speed }}m/s
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

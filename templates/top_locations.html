@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top Locations</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Top Locations - {{ metric | capitalize }}</h2>
+        <ul class="list-group">
+            {% for location in top_locations %}
+                <li class="list-group-item">
+                    {{ location.name }} - Average {{ metric | capitalize }}: {{ location.avg_metric }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

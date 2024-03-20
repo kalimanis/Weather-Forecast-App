@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Locations</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Available Locations</h1>
+        <div class="list-group mt-3">
+            {% for location in locations %}
+                <a href="{{ url_for('list_forecasts', location_id=location.id) }}" class="list-group-item list-group-item-action">
+                    {{ location.name }}
+                </a>
+            {% else %}
+                <p>No locations available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

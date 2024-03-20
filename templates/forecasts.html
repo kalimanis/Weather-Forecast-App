@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forecasts</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Weather Forecasts</h1>
+        {% for city, forecasts in forecasts_by_city.items() %}
+            <h3 class="mt-4">{{ city }}</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Temperature (°C)</th>
+                        <th>Precipitation (mm)</th>
+                        <th>Wind Speed (m/s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for forecast in forecasts %}
+                        <tr>
+                            <td>{{ forecast.forecast_date }}</td>
+                            <td>{{ forecast.temperature }}</td>
+                            <td>{{ forecast.precipitation }}</td>
+                            <td>{{ forecast.wind_speed }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No forecasts available.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
