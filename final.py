@@ -10,7 +10,6 @@ import json
 with open('config.json', 'r') as config_file:
     config = json.load(config_file)
 
-# Now you can access your credentials as follows:
 username = config['meteomatics']['username']
 password = config['meteomatics']['password']
 
@@ -27,6 +26,7 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+#initialize the db
 def init_db():
     with sqlite3.connect('weather.db') as conn:
         cursor = conn.cursor()
@@ -52,13 +52,14 @@ def init_db():
         """)
         conn.commit()
 
+#count unique locations
 def count_unique_locations():
     with sqlite3.connect('weather.db') as conn:
         cursor = conn.cursor()
         count = cursor.execute("SELECT COUNT(DISTINCT name) FROM locations").fetchone()[0]
         return count
 
-
+#fetch forecasts of each locations by calling the api
 def fetch_forecasts():
     forecasts = {}
     for name, coords in locations.items():
@@ -73,6 +74,7 @@ def fetch_forecasts():
             print(f"Error fetching data for location {name}: {response.text}")
     return forecasts
 
+#insert data into the db
 def store_forecasts(forecasts):
     with sqlite3.connect('weather.db') as conn:
         cursor = conn.cursor()
@@ -90,10 +92,13 @@ def store_forecasts(forecasts):
                     """, (location_id, date, temp, precip, wind_speed))
         conn.commit()
 
+# Route for the home page. This serves the index.html template.
 @app.route('/')
 def home():
     return render_template('index.html')
 
+# Route for displaying all locations. It fetches all location records from the database
+# and passes them to the locations.html template.
 @app.route('/locations', methods=['GET'])
 def list_locations():
     conn = get_db_connection()
@@ -101,6 +106,8 @@ def list_locations():
     conn.close()
     return render_template('locations.html', locations=locations)
 
+# Route for displaying forecasts for all locations. This endpoint fetches forecasts from the database
+# for each location and passes them to the forecasts.html template.
 @app.route('/forecasts', methods=['GET'])
 def list_forecasts():
     conn = get_db_connection()
@@ -112,6 +119,8 @@ def list_forecasts():
     conn.close()
     return render_template('forecasts.html', forecasts_by_city=forecasts_by_city)
 
+# Route for displaying the latest forecast for each location. This endpoint fetches the most recent forecast
+# for each location from the database and passes them to the latest_forecasts.html template.
 @app.route('/latest_forecasts', methods=['GET'])
 def list_latest_forecasts():
     conn = get_db_connection()
@@ -138,7 +147,7 @@ def process_forecasts(forecasts):
     # For each date, calculate the average of the last three forecasts
     avg_temps = {}
     for date, temps in temps_by_date.items():
-        # Ensure we consider only the last three temperatures
+        # only the last three temperatures
         relevant_temps = temps[-3:]
         avg_temps[date] = sum(relevant_temps) / len(relevant_temps) if relevant_temps else None
 
