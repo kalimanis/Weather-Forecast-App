@@ -16,7 +16,8 @@ password = config['meteomatics']['password']
 locations = {
     'Kastoria': '40.5193,21.2682',
     'Athens': '37.9838,23.7275',
-    'Thessaloniki': '40.6401,22.9444'
+    'Thessaloniki': '40.6401,22.9444',
+    'Kozani': '40.2989,21.7854'
 }
 
 app = Flask(__name__)
